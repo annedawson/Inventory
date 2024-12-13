@@ -45,9 +45,10 @@ object AppViewModelProvider {
         }
 
         // Initializer for ItemDetailsViewModel
-        initializer {
+          initializer {
             ItemDetailsViewModel(
-                this.createSavedStateHandle()
+                this.createSavedStateHandle(),
+                inventoryApplication().container.itemsRepository
             )
         }
 
