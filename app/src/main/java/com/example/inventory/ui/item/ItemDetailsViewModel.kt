@@ -25,9 +25,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
+
 
 /**
- * ViewModel to retrieve, update and delete an item from the [ItemsRepository]'s data source.
+ * ViewModel to retrieve, update and delete
+ * an item from the [ItemsRepository]'s data source.
  */
 class ItemDetailsViewModel(
     savedStateHandle: SavedStateHandle,
@@ -49,6 +52,15 @@ class ItemDetailsViewModel(
 
     companion object {
         private const val TIMEOUT_MILLIS = 5_000L
+    }
+
+    fun reduceQuantityByOne() {
+        viewModelScope.launch {
+            val currentItem = uiState.value.itemDetails.toItem()
+            if (currentItem.quantity > 0) {
+                itemsRepository.updateItem(currentItem.copy(quantity = currentItem.quantity - 1))
+            }
+        }
     }
 }
 

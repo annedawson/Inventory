@@ -104,7 +104,7 @@ fun ItemDetailsScreen(
         ItemDetailsBody(
             //itemDetailsUiState = ItemDetailsUiState(),
             itemDetailsUiState = uiState.value,
-            onSellItem = { },
+            onSellItem = { viewModel.reduceQuantityByOne() },
             onDelete = { },
             modifier = Modifier
                 .padding(
