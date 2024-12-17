@@ -66,7 +66,9 @@ class ItemDaoTest {
 
     // @Test: This annotation marks the
     // daoInsert_insertsItemIntoDB() function
-    // as a test case. It verifies that inserting an item using the DAO correctly adds it to the database.
+    // as a test case. It verifies that
+    // inserting an item using the DAO
+    // correctly adds it to the database.
 
     @Test
     @Throws(Exception::class)
@@ -105,6 +107,14 @@ class ItemDaoTest {
         itemDao.delete(item2)
         val allItems = itemDao.getAllItems().first()
         assertTrue(allItems.isEmpty())
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun daoGetItem_returnsItemFromDB() = runBlocking {
+        addOneItemToDb()
+        val item = itemDao.getItem(1)
+        assertEquals(item.first(), item1)
     }
 
 }
